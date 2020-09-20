@@ -15,4 +15,4 @@ for I in ${SPARK_HOME}/lib/*.jar; do
 done
 
 mkdir -p classes
-scalac -d classes -cp ${JARS}:${DIQL_HOME}/lib/diql-spark.jar $*
+~/scala-2.11.12/bin/scalac -d classes -cp ${JARS}:${DIQL_HOME}/lib/diql-spark.jar $*
