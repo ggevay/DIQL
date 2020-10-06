@@ -133,6 +133,7 @@ abstract class CodeGeneration {
                                  case (r,(p,tp))
                                    => val nv = TermName(c.freshName("x"))
                                       q"($nv:$tp) => $nv match { case $p => $r }" }
+    println("GGG2: " + fc)
     val te = try c.Expr[Any](c.typecheck(q"{ import edu.uta.diql._; $fc }")).actualType
              catch { case ex: TypecheckException => return Right(ex) }
     Left(returned_type(type2tree(te)))
@@ -215,9 +216,12 @@ abstract class CodeGeneration {
                     else if (atp <:< typeOf[Traversable[_]] || atp <:< typeOf[Array[_]])
                        q"core.inMemory"
                     else return None
-    val ctp = c.Expr[Any](c.typecheck(if (isDistr(evaluator))
-                                         q"(x:$tp) => $evaluator.head(x)"
-                                      else q"(x:$tp) => x.head")).actualType
+    val tree =
+      if (isDistr(evaluator))
+        q"(x:$tp) => $evaluator.head(x)"
+      else q"(x:$tp) => x.head"
+        println("GGG: " + tree)
+    val ctp = c.Expr[Any](c.typecheck(tree)).actualType
     Some((evaluator,returned_type(type2tree(ctp)),ec))
   }
 

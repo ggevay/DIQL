@@ -1,13 +1,12 @@
-package de.tuberlin.dima
+package anonymous
 
-import org.apache.commons.math3.random.Well19937c
 import org.apache.spark.Partitioner.defaultPartitioner
-import org.apache.spark.{Partitioner, SparkConf, SparkContext}
 import org.apache.spark.api.java.StorageLevels
 import org.apache.spark.broadcast.Broadcast
 import org.apache.spark.rdd.RDD
 import org.apache.spark.storage.StorageLevel
 import org.apache.spark.util.SizeEstimator
+import org.apache.spark.{Partitioner, SparkConf, SparkContext}
 
 import scala.reflect.ClassTag
 import scala.util.Random
@@ -21,16 +20,16 @@ object Util {
       .set("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
     if (local) {
       conf.setMaster("local[10]")
-      conf.set("spark.local.dir", "/home/gabor/sparklocaltmp")
+      conf.set("spark.local.dir", "TOBEFILLED")
     }
     conf.set("spark.cleaner.referenceTracking.cleanCheckpoints", "true")
     //conf.registerKryoClasses(Array(classOf[DenseVector]))
     implicit val sc: SparkContext = new SparkContext(conf)
 
     if (local)
-      sc.setCheckpointDir("/tmp/SparkCheckpointDir")
+      sc.setCheckpointDir("TOBEFILLED")
     else
-      sc.setCheckpointDir("hdfs://cloud-11:44000/user/ggevay/spark_checkpoints")
+      sc.setCheckpointDir("hdfs://TOBEFILLED")
 
     println("=== sc.defaultParallelism: " + sc.defaultParallelism)
 

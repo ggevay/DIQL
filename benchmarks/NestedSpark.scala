@@ -20,7 +20,7 @@ object Test {
     conf.set("spark.eventLog.enabled","false")
     LogManager.getRootLogger().setLevel(Level.WARN)
 
-    //explain(true)
+    explain(true)
     val t: Long = System.currentTimeMillis()
 
     val customers = sc.textFile(CF).map{ line => line.split(",")
