@@ -44,7 +44,7 @@ object Test {
 
      qs("""
        4::5::List(1,2);
-       +/List(1,2,3);
+       +/List(1,2,3,4,5,6,7,8,9,10);
        count/S;
        mymonoid/L;
        L.map(_+1);
@@ -114,5 +114,13 @@ object Test {
            z <- S
       where (some k <- xs: k> 3) && i==z._1
     """).foreach(println)
+
+    // Test nested loop:
+//    // repeat s = List(1,2,3) step s.map(_+1) until (+/s) > 60
+//    // repeat outer = List(1,2,3) step repeat inner = outer step inner.map(_+1) until (+/inner) > 60 until (+/outer) > 600
+    q("""
+       repeat outer = List(1,2,3) step repeat inner = outer step inner.map(_+1) until (+/inner) > 60 until (+/outer) > 600
+    """).foreach(println)
+
   }
 }

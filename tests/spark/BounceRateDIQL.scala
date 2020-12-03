@@ -227,7 +227,7 @@ object Test {
       group by gid
      """).foreach(println)
 
-//    // Scala code:
+//    // Scala code (outer parallel):
 //    visitsAll.groupByKey().map({
 //      case scala.Tuple2((gid @ _), (diql$1 @ _)) => diql$1.flatMap(((x$macro$104: Long) => x$macro$104 match {
 //        case (diql$9 @ _) => {
