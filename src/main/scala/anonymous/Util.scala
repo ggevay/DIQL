@@ -17,6 +17,7 @@ object Util {
     val conf = new SparkConf().setAppName(caller.getClass.getSimpleName)
       .set("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
     val local = !conf.contains("spark.master") || conf.get("spark.master").contains("local")
+    println("local: " + local)
     if (local) {
       conf.setMaster("local[10]")
       conf.set("spark.local.dir", "/home/gabor/sparklocaltmp")
