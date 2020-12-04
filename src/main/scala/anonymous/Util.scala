@@ -13,11 +13,10 @@ import scala.util.Random
 
 object Util {
 
-  val local = true
-
   def sparkSetup(caller: Any): SparkContext = {
     val conf = new SparkConf().setAppName(caller.getClass.getSimpleName)
       .set("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
+    val local = !conf.contains("spark.master") || conf.get("spark.master").contains("local")
     if (local) {
       conf.setMaster("local[10]")
       conf.set("spark.local.dir", "/home/gabor/sparklocaltmp")
